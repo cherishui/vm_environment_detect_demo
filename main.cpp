@@ -207,6 +207,7 @@ int main()
 	testVirtualEnvironment(std::bind(IsInVmwareByGdt), "GDT»ùÖ·");
 	testVirtualEnvironment(std::bind(IsInVmwareBySTR), "STR");
 
+
 	getchar();
 	return 0;
 }
