@@ -145,13 +145,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="detectRemoteSession.cpp" />
+    <ClCompile Include="detectVmByDiskName.cpp" />
+    <ClCompile Include="detectVmByMacAddr.cpp" />
+    <ClCompile Include="detectVmByProcessName.cpp" />
+    <ClCompile Include="detectVmByReg.cpp" />
+    <ClCompile Include="detectVmByServiceName.cpp" />
+    <ClCompile Include="detectVmBySysFile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test_wmidatahelper.cpp" />
     <ClCompile Include="WmiDataHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="detectRemoteSession.h" />
+    <ClInclude Include="detectVmByDiskName.h" />
+    <ClInclude Include="detectVmByMacAddr.h" />
+    <ClInclude Include="detectVmByProcessName.h" />
+    <ClInclude Include="detectVmByReg.h" />
+    <ClInclude Include="detectVmByServiceName.h" />
+    <ClInclude Include="detectVmBySysFile.h" />
     <ClInclude Include="test_wmidatahelper.h" />
     <ClInclude Include="WmiDataHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="detectVmByProcessName" />
+    <None Include="detectVmByReg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

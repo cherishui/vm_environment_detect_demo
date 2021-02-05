@@ -24,6 +24,27 @@
     <ClCompile Include="test_wmidatahelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="detectRemoteSession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detectVmByServiceName.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detectVmByProcessName.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detectVmByReg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detectVmByDiskName.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detectVmByMacAddr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="detectVmBySysFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WmiDataHelper.h">
@@ -32,5 +53,30 @@
     <ClInclude Include="test_wmidatahelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="detectRemoteSession.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detectVmByServiceName.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detectVmByProcessName.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detectVmByReg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detectVmByDiskName.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detectVmByMacAddr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detectVmBySysFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="detectVmByProcessName" />
+    <None Include="detectVmByReg" />
   </ItemGroup>
 </Project>

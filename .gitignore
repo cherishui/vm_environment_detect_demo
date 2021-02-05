@@ -1,0 +1,11 @@
+# 过滤文件夹Debug,Release,obj和.vs
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+
+Debug/
+Release/
+obj/
+.vs/
+
