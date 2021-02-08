@@ -7,6 +7,9 @@
 #include "detectVmByMacAddr.h"
 #include <stdio.h>
 #pragma comment(lib, "Iphlpapi.lib")
+#include <iostream>
+using std::cout;
+using std::endl;
 bool CheckVMByMacAddr()
 {
 	BOOL bVM = FALSE;
@@ -39,6 +42,7 @@ bool CheckVMByMacAddr()
 		)
 	{
 		// VMware Íø¿¨ 
+		std::cout << "CheckVMByMacAddr: detect VMware netaddr" << std::endl;
 		bVM = TRUE;		
 	}
 
@@ -49,6 +53,7 @@ bool CheckVMByMacAddr()
 			0x27 == pAdapterInfo->Address[2])
 		)
 	{	// Virtual Box
+		std::cout << "CheckVMByMacAddr: detect Virtual Box netaddr" << std::endl;
 		bVM = TRUE;
 	}
 
@@ -57,7 +62,8 @@ bool CheckVMByMacAddr()
 			0x03 == pAdapterInfo->Address[1] &&
 			0xff == pAdapterInfo->Address[2])
 		)
-	{	// Virtual PC
+	{	// Virtual PC		
+		std::cout << "CheckVMByMacAddr: detect Virtual PC netaddr" << std::endl;
 		bVM = TRUE;
 	}
 

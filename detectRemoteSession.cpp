@@ -8,7 +8,6 @@
 using std::cout;
 using std::endl;
 
-#if 0
 BOOL IsCurrentSessionRemoteable()
 {
 	BOOL fIsRemoteable = FALSE;
@@ -66,8 +65,6 @@ BOOL IsCurrentSessionRemoteable()
 
 	return fIsRemoteable;
 }
-#endif
-
 
 BOOL IsCurrentSessionRemoteableByREMOTESESSION()
 {
@@ -151,7 +148,6 @@ BOOL ConbineTwo()
 
 void detectRemoteSession()
 {
-
 	std::cout << "IsCurrentSessionRemoteableByREMOTESESSION=======" << std::endl;
 	if (IsCurrentSessionRemoteableByREMOTESESSION())
 	{

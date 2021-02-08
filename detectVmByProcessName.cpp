@@ -4,6 +4,9 @@
 #include <string>
 #include <TlHelp32.h>
 #include <tchar.h>
+#include <iostream>
+using std::cout;
+using std::endl;
 
 // 思路1：检测指定进程名是否存在
 bool IsExist(const wchar_t* pName)
@@ -33,7 +36,11 @@ bool IsExist(const wchar_t* pName)
 	for (int i = 0; i < sizeof(list) / sizeof(list[0]); i++)
 	{
 		if (0 == strProcessName.compare(list[i]))
+		{
+			cout << "CheckVMByProcessName detect " << list[i] << endl;
 			return true;
+		}
+			
 	}
 
 	return false;

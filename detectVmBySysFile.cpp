@@ -1,14 +1,16 @@
 #include "detectVmBySysFile.h"
 #include <tchar.h>
 #include <io.h>
-
+#include <iostream>
+using std::cout;
+using std::endl;
 bool CheckVMBySysFile()
 {
 	const char* list[] = {
 		//Vmware
-		"C:\\windows\\System32\\Drivers\\Vmmouse.sys",
-		"C:\\windows\\System32\\Drivers\\vmusbmouse.sys",
-		"C:\\windows\\System32\\vmhgfs.dll",
+		"C:\\windows\\System32\\Drivers\\Vmmouse.sys",		// 改名字
+		"C:\\windows\\System32\\Drivers\\vmusbmouse.sys",   // 改名字
+		"C:\\windows\\System32\\vmhgfs.dll",				// 改名字
 
 		//virtuablBox
 		"C:\\windows\\System32\\Drivers\\VBoxMouse.sys",
@@ -23,6 +25,7 @@ bool CheckVMBySysFile()
 	{
 		if (-1 != _access(list[i], 0))
 		{
+			std::cout << "CheckVMBySysFile: detect file " << list[i] << std::endl;
 			return true;
 		}
 	}

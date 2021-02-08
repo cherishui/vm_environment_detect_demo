@@ -3,6 +3,8 @@
 #include <string>
 #include <algorithm>
 #include <iostream>
+using std::cout;
+using std::endl;;
 bool IsServiceExist(const char* pName)
 {
 	if (nullptr == pName)
@@ -26,7 +28,10 @@ bool IsServiceExist(const char* pName)
 	for (int i = 0; i < sizeof(list) / sizeof(list[0]); i++)
 	{
 		if (0 == strProcessName.compare(list[i]))
+		{
 			return true;
+		}
+			
 	}
 
 	return false;
@@ -34,42 +39,69 @@ bool IsServiceExist(const char* pName)
 
 bool CheckVMByServerName()
 {
-	int menu = 0;
-	SC_HANDLE SCMan = OpenSCManager(NULL, NULL, SC_MANAGER_ENUMERATE_SERVICE);        //打开服务控制管理器
-	if (SCMan == NULL)
+	BOOL bInVirtual = FALSE;
+	// 打开服务控制管理器
+	SC_HANDLE SCMan = OpenSCManager(NULL,                       // 打开本机服务管理控制器
+		SERVICES_ACTIVE_DATABASE,
+		SC_MANAGER_ENUMERATE_SERVICE   // 枚举服务
+	);
+	if (NULL == SCMan)
 	{
-		std::cout << GetLastError() << std::endl;
-		printf("OpenSCManager Eorror/n");
-		return -1;
+		printf("CheckVirtualEnvirByServiceName OpenSCManager fail. error:%d", GetLastError());
+		return FALSE;
 	}
 
-	LPENUM_SERVICE_STATUSA service_status;
-	DWORD cbBytesNeeded = NULL;
-	DWORD ServicesReturned = NULL;
-	DWORD ResumeHandle = NULL;
-	service_status = (LPENUM_SERVICE_STATUSA)LocalAlloc(LPTR, 1024 * 64);
-	bool ESS = EnumServicesStatusA(SCMan, //遍历服务
-		SERVICE_WIN32,
-		SERVICE_STATE_ALL,
-		(LPENUM_SERVICE_STATUSA)service_status,
-		1024 * 64,
-		&cbBytesNeeded,
-		&ServicesReturned,
+	DWORD cbBytesNeeded = 0;
+	DWORD ServicesReturned = 0;
+	DWORD ResumeHandle = 0;
+	// 遍历服务,获得真实服务大小
+	BOOL ESS = EnumServicesStatus(SCMan,
+		SERVICE_WIN32,                // 枚举WIN32服务类型
+		SERVICE_STATE_ALL,            // 
+		NULL,                         // 枚举结果输出缓存
+		0,                            // 枚举结果输出缓存大小
+		&cbBytesNeeded,             // 获取剩余services所需字节个数
+		&ServicesReturned,          // 返回服务个数
 		&ResumeHandle);
-	if (ESS == NULL)
+	if (NULL == ESS && ERROR_MORE_DATA == GetLastError())
 	{
-		printf("EnumServicesStatus Eorror/n");
-		return -1;
+		int nRealBytes = cbBytesNeeded;
+		cbBytesNeeded = 0;
+		LPENUM_SERVICE_STATUSA service_status = (LPENUM_SERVICE_STATUSA)new char[nRealBytes];
+
+		ESS = EnumServicesStatus(SCMan,
+			SERVICE_WIN32,                // 枚举WIN32服务类型
+			SERVICE_STATE_ALL,            // 所有状态
+			service_status,             // 枚举结果输出缓存
+			nRealBytes,                 // 枚举结果输出缓存大小
+			&cbBytesNeeded,            // 获取剩余services所需字节个数
+			&ServicesReturned,         // 返回服务个数
+			&ResumeHandle);
+		if (ESS && 0 == cbBytesNeeded)
+		{
+			for (DWORD i = 0; i < ServicesReturned; i++)
+			{
+				if (IsServiceExist(service_status[i].lpServiceName))
+				{
+					bInVirtual = TRUE;
+					printf("CheckVirtualEnvirByServiceName detect: %s", service_status[i].lpServiceName);
+					break;
+				}
+			}
+		}
+		else
+		{
+			printf(("CheckVirtualEnvirByServiceName fail: error:%d cbBytesNeeded:%d ServicesReturned:%d ResumeHandle:%d", GetLastError(), cbBytesNeeded, ServicesReturned, ResumeHandle);
+		}
+
+		delete[]service_status;
+		service_status = NULL;
+	}
+	else
+	{
+		printf("CheckVirtualEnvirByServiceName EnumServicesStatus fail. error:%d", GetLastError());
 	}
 
-	for (int i = 0; i < ServicesReturned; i++)
-	{
-		// 此处加入各种虚拟机特征服务
-		if (IsServiceExist(service_status[i].lpServiceName))
-		{
-			return TRUE;
-		}
-	}
 	CloseServiceHandle(SCMan);
-	return FALSE;
+	return bInVirtual;
 }
