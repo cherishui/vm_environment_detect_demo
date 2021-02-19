@@ -29,6 +29,8 @@ bool IsExist(const wchar_t* pName)
 		L"vmsrvc.exe",
 		L"vmusrvc.exe",
 		L"vpcmap.exe",
+
+		// Mac Parallels Desktop	
 	};
 
 	std::wstring strProcessName(pName);

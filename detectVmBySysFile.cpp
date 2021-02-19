@@ -8,9 +8,9 @@ bool CheckVMBySysFile()
 {
 	const char* list[] = {
 		//Vmware
-		"C:\\windows\\System32\\Drivers\\Vmmouse.sys",		// 改名字
-		"C:\\windows\\System32\\Drivers\\vmusbmouse.sys",   // 改名字
-		"C:\\windows\\System32\\vmhgfs.dll",				// 改名字
+		"C:\\windows\\System32\\Drivers\\Vmmouse.sys",	
+		"C:\\windows\\System32\\Drivers\\vmusbmouse.sys",
+		"C:\\windows\\System32\\vmhgfs.dll",
 
 		//virtuablBox
 		"C:\\windows\\System32\\Drivers\\VBoxMouse.sys",
@@ -19,6 +19,11 @@ bool CheckVMBySysFile()
 
 		//virtualPC
 		"C:\\windows\\System32\\Drivers\\vmsrvc.sys",
+
+		// MAC Parallels Desktop
+		"C:\\windows\\System32\\Drivers\\prl_boot.sys",
+		"C:\\windows\\System32\\Drivers\\prl_eth5.sys",
+		"C:\\windows\\System32\\Drivers\\prl_mouf.sys",
 	};
 
 	for (int i = 0; i < sizeof(list) / sizeof(list[0]); i++)

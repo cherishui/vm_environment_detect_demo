@@ -167,10 +167,6 @@
     <ClInclude Include="test_wmidatahelper.h" />
     <ClInclude Include="WmiDataHelper.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="detectVmByProcessName" />
-    <None Include="detectVmByReg" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

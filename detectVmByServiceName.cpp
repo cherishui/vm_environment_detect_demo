@@ -5,25 +5,29 @@
 #include <iostream>
 using std::cout;
 using std::endl;;
-bool IsServiceExist(const char* pName)
+bool IsServiceExist(const wchar_t* pName)
 {
 	if (nullptr == pName)
 		return false;
 
 	// 使用服务名称来读
-	const char* list[] = {
+	const wchar_t* list[] = {
 		// 
-		"vmvss",
-		"vmtools",
+		L"vmvss",
+		L"vmtools",
 
 		//virtuablBox
-		"vboxservice",
+		L"vboxservice",
 
 		//virtualPC
-		"1-vmsrvc"
+		L"1-vmsrvc",
+
+		//Mac parallel_desktop
+		L"parallels coherence service",
+		L"parallels tools service"
 	};
 
-	std::string strProcessName(pName);
+	std::wstring strProcessName(pName);
 	std::transform(strProcessName.begin(), strProcessName.end(), strProcessName.begin(), ::tolower);
 	for (int i = 0; i < sizeof(list) / sizeof(list[0]); i++)
 	{
@@ -67,7 +71,7 @@ bool CheckVMByServerName()
 	{
 		int nRealBytes = cbBytesNeeded;
 		cbBytesNeeded = 0;
-		LPENUM_SERVICE_STATUSA service_status = (LPENUM_SERVICE_STATUSA)new char[nRealBytes];
+		LPENUM_SERVICE_STATUS service_status = (LPENUM_SERVICE_STATUS)new char[nRealBytes];
 
 		ESS = EnumServicesStatus(SCMan,
 			SERVICE_WIN32,                // 枚举WIN32服务类型
@@ -84,14 +88,14 @@ bool CheckVMByServerName()
 				if (IsServiceExist(service_status[i].lpServiceName))
 				{
 					bInVirtual = TRUE;
-					printf("CheckVirtualEnvirByServiceName detect: %s", service_status[i].lpServiceName);
+					printf("CheckVirtualEnvirByServiceName detect: %ls", service_status[i].lpServiceName);
 					break;
 				}
 			}
 		}
 		else
 		{
-			printf(("CheckVirtualEnvirByServiceName fail: error:%d cbBytesNeeded:%d ServicesReturned:%d ResumeHandle:%d", GetLastError(), cbBytesNeeded, ServicesReturned, ResumeHandle);
+			printf("CheckVirtualEnvirByServiceName fail: error:%d cbBytesNeeded:%d ServicesReturned:%d ResumeHandle:%d", GetLastError(), cbBytesNeeded, ServicesReturned, ResumeHandle);
 		}
 
 		delete[]service_status;
